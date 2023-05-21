@@ -17,10 +17,29 @@ import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { initSignupState } from "../assets/data";
+import { useDispatch } from "react-redux";
+import authReducer from "../store/auth/authReducer";
+import { signupAPI } from "../store/auth/auth.actions";
 
 const Signup = () => {
-  const [signupState, setSignupState] = useState(initSignupState);
+  const [creds, setCreds] = useState(initSignupState);
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch(authReducer);
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setCreds({
+      ...creds,
+      [name]: value,
+    });
+    // console.log(creds);
+  };
+
+  const onSubmit = () => {
+    if (!creds.fName || !creds.email || !creds.password)
+      alert("Please enter all required fields");
+    else dispatch(signupAPI(creds));
+  };
 
   return (
     <Flex bg={useColorModeValue("gray.50", "gray.800")}>
@@ -42,26 +61,30 @@ const Signup = () => {
           <Stack spacing={4}>
             <HStack>
               <Box>
-                <FormControl name={"fName"} isRequired>
+                <FormControl isRequired>
                   <FormLabel>First Name</FormLabel>
-                  <Input type="text" />
+                  <Input type="text" name={"fName"} onChange={onChange} />
                 </FormControl>
               </Box>
               <Box>
-                <FormControl name={"lName"}>
+                <FormControl>
                   <FormLabel>Last Name</FormLabel>
-                  <Input type="text" />
+                  <Input type="text" name={"lName"} onChange={onChange} />
                 </FormControl>
               </Box>
             </HStack>
-            <FormControl name={"email"} isRequired>
+            <FormControl isRequired>
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input type="email" name={"email"} onChange={onChange} />
             </FormControl>
-            <FormControl name={"password"} isRequired>
+            <FormControl isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? "text" : "password"} />
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  name={"password"}
+                  onChange={onChange}
+                />
                 <InputRightElement h={"full"}>
                   <Button
                     variant={"ghost"}
@@ -83,6 +106,7 @@ const Signup = () => {
                 _hover={{
                   bg: "blue.500",
                 }}
+                onClick={onSubmit}
               >
                 Sign up
               </Button>

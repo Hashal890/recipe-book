@@ -8,14 +8,19 @@ import {
   Auth_SignUp_Success,
 } from "./auth.types";
 
-const token = localStorage.getItem("token") || "";
+const userToken = localStorage.getItem("userToken") || null;
+
 const initAuth = {
   loading: false,
   error: false,
   isRegistered: false,
   isAuthanticated: false,
-  token: token,
-  message: "",
+  userToken: userToken,
+  message: null,
+  fName: null,
+  lName: null,
+  email: null,
+  password: null,
 };
 
 const authReducer = (state = initAuth, { type, payload }) => {
@@ -31,16 +36,21 @@ const authReducer = (state = initAuth, { type, payload }) => {
         ...state,
         loading: false,
         error: true,
-        message: payload.data,
       };
     }
     case Auth_SignUp_Success: {
+      const { userToken, fName, lName, email, password } = payload;
+      localStorage.setItem("userToken", userToken);
       return {
         ...state,
         loading: false,
         error: false,
-        isRegistered: true,
-        token: payload.token,
+        isAuthanticated: true,
+        userToken: userToken,
+        fName: fName,
+        lName: lName,
+        email: email,
+        password: password,
       };
     }
     case Auth_LogIn_Loading: {
@@ -57,23 +67,32 @@ const authReducer = (state = initAuth, { type, payload }) => {
       };
     }
     case Auth_LogIn_Success: {
-      localStorage.setItem("token", payload.token);
+      const { userToken, fName, lName, email, password } = payload;
+      localStorage.setItem("userToken", userToken);
       return {
         ...state,
         loading: false,
         error: false,
         isAuthanticated: true,
-        token: payload.token,
+        userToken: userToken,
+        fName: fName,
+        lName: lName,
+        email: email,
+        password: password,
       };
     }
     case Auth_Logout: {
-      localStorage.removeItem("token");
+      localStorage.removeItem("userToken");
       return {
         ...state,
         loading: false,
         error: false,
         isAuthanticated: false,
-        token: "",
+        userToken: null,
+        fName: null,
+        lName: null,
+        email: null,
+        password: null,
       };
     }
     default:

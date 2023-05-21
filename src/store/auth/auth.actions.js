@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   Auth_LogIn_Error,
   Auth_LogIn_Loading,
@@ -10,14 +9,20 @@ import {
 } from "./auth.types";
 
 export const loginAPI = (creds) => async (dispatch) => {
+  const userDetails = JSON.parse(localStorage.getItem("userDetails")) || null;
+  if (!userDetails) return false;
+  const { fName, lName, email, password } = userDetails;
   dispatch({ type: Auth_LogIn_Loading });
   try {
-    let res = await axios.post(
-      "https://betrix24-backend.herokuapp.com/login",
-      creds
-    );
-    dispatch({ type: Auth_LogIn_Success, payload: res.data });
-    return res.data;
+    const res = {
+      userToken: `${fName}-${lName}-${email}`,
+      fName,
+      lName,
+      email,
+      password,
+    };
+    dispatch({ type: Auth_LogIn_Success, payload: res });
+    return true;
   } catch (err) {
     dispatch({ type: Auth_LogIn_Error });
   }
@@ -28,14 +33,19 @@ export const logoutAPI = () => (dispatch) => {
 };
 
 export const signupAPI = (creds) => async (dispatch) => {
+  const { fName, lName, email, password } = creds;
+  localStorage.setItem("userDetails", JSON.stringify(creds));
   dispatch({ type: Auth_SignUp_Loading });
   try {
-    let res = await axios.post(
-      "https://betrix24-backend.herokuapp.com/signup",
-      creds
-    );
-    dispatch({ type: Auth_SignUp_Success, payload: res.data });
-    return res.data;
+    const res = {
+      userToken: `${fName}-${lName}-${email}`,
+      fName,
+      lName,
+      email,
+      password,
+    };
+    dispatch({ type: Auth_SignUp_Success, payload: res });
+    return true;
   } catch (err) {
     dispatch({ type: Auth_SignUp_Error, payload: err.response });
   }
