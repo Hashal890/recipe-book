@@ -9,14 +9,15 @@ import {
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { logoutAPI } from "../store/auth/auth.actions";
 
 export default function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();
   const dispatch = useDispatch();
 
-  const Logout = () => {
+  const onSubmit = () => {
     // alert("logout");
-    dispatch();
+    dispatch(logoutAPI());
   };
 
   return (
@@ -35,7 +36,7 @@ export default function Navbar() {
               bg={"green.500"}
               color={"whiteAlpha.900"}
               _hover={{ bg: "yellow.500", color: "whiteAlpha.900" }}
-              onClick={Logout}
+              onClick={onSubmit}
             >
               Logout
             </Button>

@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { initSignupState } from "../assets/data";
 import { useDispatch } from "react-redux";
 import authReducer from "../store/auth/authReducer";
@@ -25,6 +25,10 @@ const Signup = () => {
   const [creds, setCreds] = useState(initSignupState);
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch(authReducer);
+  const navigate = useNavigate();
+  const userToken = localStorage.getItem("userToken") || null;
+
+  // console.log(userToken !== null);
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -35,23 +39,32 @@ const Signup = () => {
     // console.log(creds);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!creds.fName || !creds.email || !creds.password)
       alert("Please enter all required fields");
-    else dispatch(signupAPI(creds));
+    else {
+      await dispatch(signupAPI(creds));
+      navigate("/");
+    }
   };
+
+  // if (userToken) navigate("/");
 
   return (
     <Flex bg={useColorModeValue("gray.50", "gray.800")}>
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-        <Stack align={"center"}>
-          <Heading fontSize={"4xl"} textAlign={"center"}>
-            Sign up
-          </Heading>
-          <Text fontSize={"lg"} color={"gray.600"}>
-            to enjoy all of our cool features ✌️
-          </Text>
-        </Stack>
+        {userToken ? (
+          <Heading textAlign={"center"}>You are logged In!</Heading>
+        ) : (
+          <Stack align={"center"}>
+            <Heading fontSize={"4xl"} textAlign={"center"}>
+              Sign up
+            </Heading>
+            <Text fontSize={"lg"} color={"gray.600"}>
+              to enjoy all of our cool features ✌️
+            </Text>
+          </Stack>
+        )}
         <Box
           rounded={"lg"}
           bg={useColorModeValue("white", "gray.700")}
@@ -98,18 +111,32 @@ const Signup = () => {
               </InputGroup>
             </FormControl>
             <Stack spacing={10} pt={2}>
-              <Button
-                loadingText="Submitting"
-                size="lg"
-                bg={"blue.400"}
-                color={"white"}
-                _hover={{
-                  bg: "blue.500",
-                }}
-                onClick={onSubmit}
-              >
-                Sign up
-              </Button>
+              {userToken ? (
+                <Button
+                  onClick={() => navigate("/")}
+                  colorScheme={"telegram"}
+                  w={"220px"}
+                  m={"auto"}
+                >
+                  Go Home
+                </Button>
+              ) : (
+                <Button
+                  loadingText="Submitting"
+                  size="lg"
+                  bg={"blue.400"}
+                  color={"white"}
+                  _hover={{
+                    bg: "blue.500",
+                  }}
+                  onClick={onSubmit}
+                  // disabled={userToken !== null}
+                  w={"220px"}
+                  m={"auto"}
+                >
+                  Sign up
+                </Button>
+              )}
             </Stack>
             <Stack pt={6}>
               <Text align={"center"}>

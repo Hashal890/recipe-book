@@ -12,20 +12,22 @@ export const loginAPI = (creds) => async (dispatch) => {
   const userDetails = JSON.parse(localStorage.getItem("userDetails")) || null;
   if (!userDetails) return false;
   const { fName, lName, email, password } = userDetails;
-  dispatch({ type: Auth_LogIn_Loading });
-  try {
-    const res = {
-      userToken: `${fName}-${lName}-${email}`,
-      fName,
-      lName,
-      email,
-      password,
-    };
-    dispatch({ type: Auth_LogIn_Success, payload: res });
-    return true;
-  } catch (err) {
-    dispatch({ type: Auth_LogIn_Error });
-  }
+  if (email === creds.email && password === creds.password) {
+    dispatch({ type: Auth_LogIn_Loading });
+    try {
+      const res = {
+        userToken: `${fName}-${lName}-${email}`,
+        fName,
+        lName,
+        email,
+        password,
+      };
+      dispatch({ type: Auth_LogIn_Success, payload: res });
+      return true;
+    } catch (err) {
+      dispatch({ type: Auth_LogIn_Error });
+    }
+  } else return false;
 };
 
 export const logoutAPI = () => (dispatch) => {

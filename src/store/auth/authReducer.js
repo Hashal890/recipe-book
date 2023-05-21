@@ -83,6 +83,7 @@ const authReducer = (state = initAuth, { type, payload }) => {
     }
     case Auth_Logout: {
       localStorage.removeItem("userToken");
+      localStorage.removeItem("userDetails");
       return {
         ...state,
         loading: false,
