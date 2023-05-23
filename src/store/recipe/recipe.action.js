@@ -6,46 +6,55 @@ import {
   SAVE_RECIPE_PROFILE,
 } from "./recipe.types";
 
-export const getRandomRecipies = () => (dispatch) => {
+export const getRandomRecipies = () => async (dispatch) => {
   try {
-    let arr = new Array(30);
-    for (let i = 0; i < arr.length; i++) {
-      axios
-        .get("https://www.themealdb.com/api/json/v1/1/random.php")
-        .then((res) => (arr[i] = res.data.meals[0]));
+    const arr = new Array(30);
+    for (let i = 0; i < 30; i++) {
+      let res = await axios.get(
+        "https://www.themealdb.com/api/json/v1/1/random.php"
+      );
+      // .then((res) => res.json())
+      // .then((res) => (arr[i] = res.data.meals[0]))
+      // .catch((err) => console.log(err));
+      arr[i] = res.data.meals[0];
     }
-    //   console.log(arr);
+    // console.log(arr);
     dispatch({ type: GET_RANDOM_RECIPES, payload: arr });
     return;
   } catch (err) {
-    console.log(err);
+    return console.log(err);
   }
 };
 
-export const getSearchRecipies = (searchText) => (dispatch) => {
+export const getSearchRecipies = (searchText) => async (dispatch) => {
   try {
-    axios
-      .get(`www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`)
-      .then((res) => dispatch({ type: GET_SEARCH_RECIPE, payload: res.data }))
-      .catch((err) => console.log(err))
-      .finally(() => {
-        return;
-      });
+    let res = await axios.get(
+      `www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`
+    );
+    dispatch({ type: GET_SEARCH_RECIPE, payload: res.data });
+    return;
   } catch (err) {
-    console.log(err);
+    return console.log(err);
   }
 };
 
-export const getRecipiesByID = (id) => (dispatch) => {
+export const getRecipiesByID = (id) => async (dispatch) => {
   try {
-    axios
-      .get(`www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
-      .then((res) => dispatch({ type: GET_RECIPE_BY_ID, payload: res.data }))
-      .catch((err) => console.log(err))
-      .finally(() => {
-        return;
-      });
+    let res = await axios.get(
+      `www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
+    );
+    dispatch({ type: GET_RECIPE_BY_ID, payload: res.data });
+    return;
   } catch (err) {
-    console.log(err);
+    return console.log(err);
+  }
+};
+
+export const saveRecipeToProfile = (recipe) => (dispatch) => {
+  try {
+    dispatch({ type: SAVE_RECIPE_PROFILE, payload: recipe });
+    return;
+  } catch (err) {
+    return console.log(err);
   }
 };

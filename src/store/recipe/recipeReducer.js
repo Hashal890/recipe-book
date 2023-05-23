@@ -9,17 +9,17 @@ const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
 
 const initData = {
   savedRecipes: savedRecipes,
-  randomData: [],
-  searchRecipe: {},
+  data: [],
   singleRecipe: {},
 };
 
 const recipeReducer = (state = initData, { type, payload }) => {
   switch (type) {
     case GET_RANDOM_RECIPES: {
+      // console.log(payload, "inside reducer");
       return {
         ...state,
-        randomData: payload,
+        data: payload,
       };
     }
     case GET_RECIPE_BY_ID: {
@@ -31,7 +31,7 @@ const recipeReducer = (state = initData, { type, payload }) => {
     case GET_SEARCH_RECIPE: {
       return {
         ...state,
-        searchRecipe: payload,
+        data: payload,
       };
     }
     case SAVE_RECIPE_PROFILE: {

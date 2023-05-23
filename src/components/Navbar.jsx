@@ -26,9 +26,6 @@ export default function Navbar() {
         <Link to={"/"}>Recipe Book</Link>
         <Flex alignItems={"center"}>
           <Stack direction={"row"} spacing={7} alignItems={"center"}>
-            <Button onClick={toggleColorMode}>
-              {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-            </Button>
             <Link to={"/"}>Home</Link>
             <Link to={"/signup"}>Signup</Link>
             <Link to={"/login"}>Login</Link>
@@ -39,6 +36,9 @@ export default function Navbar() {
               onClick={onSubmit}
             >
               Logout
+            </Button>
+            <Button onClick={toggleColorMode}>
+              {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
             </Button>
           </Stack>
         </Flex>

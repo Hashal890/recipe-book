@@ -1,19 +1,23 @@
-import React, { useState } from "react";
-import { Box, Button, Flex, Input } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
-// import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Box, Button, Flex, Input, SimpleGrid } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
+import RecipeCard from "../components/RecipeCard";
+import { getRandomRecipies } from "../store/recipe/recipe.action";
 
 const Home = () => {
   const [searchText, setSearchText] = useState("");
-  const data = useSelector((store) => store);
+  const { data } = useSelector((store) => store.recipe);
+  const dispatch = useDispatch();
+
+  // console.log(data);
 
   const searchRecipies = () => {
     // console.log(searchText);
   };
 
-  // axios
-  //   .get("https://www.themealdb.com/api/json/v1/1/random.php")
-  //   .then((res) => console.log(res.data.meals[0]));
+  useEffect(() => {
+    // dispatch(getRandomRecipies());
+  });
 
   return (
     <Box textAlign={"center"}>
@@ -27,6 +31,12 @@ const Home = () => {
           Search
         </Button>
       </Flex>
+      <SimpleGrid columns={[1, 1, 2, 4]}>
+        {data &&
+          data.forEach((recipe) => {
+            <RecipeCard key={recipe.idMeal} {...recipe} />;
+          })}
+      </SimpleGrid>
     </Box>
   );
 };
