@@ -9,18 +9,19 @@ import {
 } from "./auth.types";
 
 const userToken = localStorage.getItem("userToken") || null;
+const userDetails = JSON.parse(localStorage.getItem("userDetails")) || null;
 
 const initAuth = {
   loading: false,
   error: false,
-  isRegistered: false,
-  isAuthanticated: false,
+  isRegistered: userToken ? true : false,
+  isAuthanticated: userToken ? true : false,
   userToken: userToken,
   message: null,
-  fName: null,
-  lName: null,
-  email: null,
-  password: null,
+  fName: userToken ? userDetails.fName : null,
+  lName: userToken ? userDetails.lName : null,
+  email: userToken ? userDetails.email : null,
+  password: userToken ? userDetails.password : null,
 };
 
 const authReducer = (state = initAuth, { type, payload }) => {

@@ -8,17 +8,21 @@ import {
 
 export const getRandomRecipies = () => async (dispatch) => {
   try {
-    const arr = new Array(30);
-    for (let i = 0; i < 30; i++) {
+    let arr = [];
+    while (arr.length < 40) {
       let res = await axios.get(
         "https://www.themealdb.com/api/json/v1/1/random.php"
       );
-      // .then((res) => res.json())
-      // .then((res) => (arr[i] = res.data.meals[0]))
-      // .catch((err) => console.log(err));
-      arr[i] = res.data.meals[0];
+      let isPresent = false;
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].idMeal === res.data.meals[0].idMeal) {
+          isPresent = true;
+        }
+      }
+      if (!isPresent) {
+        arr.push(res.data.meals[0]);
+      }
     }
-    // console.log(arr);
     dispatch({ type: GET_RANDOM_RECIPES, payload: arr });
     return;
   } catch (err) {
@@ -29,9 +33,10 @@ export const getRandomRecipies = () => async (dispatch) => {
 export const getSearchRecipies = (searchText) => async (dispatch) => {
   try {
     let res = await axios.get(
-      `www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`
+      `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`
     );
-    dispatch({ type: GET_SEARCH_RECIPE, payload: res.data });
+    // console.log(res);
+    dispatch({ type: GET_SEARCH_RECIPE, payload: res.data.meals });
     return;
   } catch (err) {
     return console.log(err);
@@ -41,9 +46,10 @@ export const getSearchRecipies = (searchText) => async (dispatch) => {
 export const getRecipiesByID = (id) => async (dispatch) => {
   try {
     let res = await axios.get(
-      `www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
+      `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
     );
-    dispatch({ type: GET_RECIPE_BY_ID, payload: res.data });
+    // console.log(res, "actions");
+    dispatch({ type: GET_RECIPE_BY_ID, payload: res.data.meals[0] });
     return;
   } catch (err) {
     return console.log(err);

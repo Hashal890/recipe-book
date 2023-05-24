@@ -7,7 +7,7 @@ import {
 
 const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
 
-const initData = {
+let initData = {
   savedRecipes: savedRecipes,
   data: [],
   singleRecipe: {},
@@ -23,6 +23,7 @@ const recipeReducer = (state = initData, { type, payload }) => {
       };
     }
     case GET_RECIPE_BY_ID: {
+      // console.log(payload, "inside reducer");
       return {
         ...state,
         singleRecipe: payload,
@@ -35,9 +36,11 @@ const recipeReducer = (state = initData, { type, payload }) => {
       };
     }
     case SAVE_RECIPE_PROFILE: {
+      const newSavedRecipe = [...state.savedRecipes, payload];
+      localStorage.setItem("savedRecipes", JSON.stringify(newSavedRecipe));
       return {
         ...state,
-        savedRecipes: [...state.savedRecipes, payload],
+        savedRecipes: newSavedRecipe,
       };
     }
     default: {

@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./Home.routes";
 import Signup from "./Signup.routes";
 import Login from "./Login.routes";
-import RecipeCard from "../components/RecipeCard";
+import SinglePage from "./SinglePage.routes";
 import Profile from "./Profile.routes";
 import SavedRecipes from "./SavedRecipes.routes";
 
@@ -15,7 +15,7 @@ const AllRoutes = () => {
       <Route path={"/login"} element={<Login />} />
       <Route path={"/profile"} element={<Profile />} />
       <Route path={"/savedrecipes"} element={<SavedRecipes />} />
-      <Route path={"/recipe/:id"} element={<RecipeCard />} />
+      <Route path={"/recipe/:id"} element={<SinglePage />} />
     </Routes>
   );
 };
