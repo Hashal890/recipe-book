@@ -2,18 +2,23 @@ import { Box, Button, Image, Text, useToast } from "@chakra-ui/react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { saveRecipeToProfile } from "../store/recipe/recipe.action";
+import { removeRecipeFromProfile } from "../store/recipe/recipe.action";
 
-const RecipeCard = (recipe) => {
+const SavedRecipeCard = ({
+  idMeal,
+  strMealThumb,
+  strMeal,
+  strCategory,
+  strArea,
+}) => {
   const dispatch = useDispatch();
-  const { idMeal, strMealThumb, strMeal, strCategory, strArea } = recipe;
   const { isAuthanticated } = useSelector((store) => store.auth);
   const toast = useToast();
 
-  const saveToProfile = () => {
-    dispatch(saveRecipeToProfile(recipe));
+  const removeFromProfile = () => {
+    dispatch(removeRecipeFromProfile(idMeal));
     toast({
-      title: `${strMeal} saved successfully!`,
+      title: `${strMeal} removed from save collection!`,
       position: "bottom-right",
       isClosable: true,
       status: "success",
@@ -30,12 +35,12 @@ const RecipeCard = (recipe) => {
         <Link to={`/recipe/${idMeal}`}>View Details</Link>
       </Box>
       {isAuthanticated && (
-        <Button onClick={saveToProfile} colorScheme={"cyan"}>
-          Save recipe
+        <Button onClick={removeFromProfile} colorScheme={"cyan"}>
+          Remove recipe
         </Button>
       )}
     </Box>
   );
 };
 
-export default RecipeCard;
+export default SavedRecipeCard;

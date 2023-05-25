@@ -4,6 +4,7 @@ import {
   GET_SEARCH_RECIPE,
   GET_RECIPE_BY_ID,
   SAVE_RECIPE_PROFILE,
+  REMOVE_SAVE_RECIPE_PROFILE,
 } from "./recipe.types";
 
 export const getRandomRecipies = () => async (dispatch) => {
@@ -59,6 +60,15 @@ export const getRecipiesByID = (id) => async (dispatch) => {
 export const saveRecipeToProfile = (recipe) => (dispatch) => {
   try {
     dispatch({ type: SAVE_RECIPE_PROFILE, payload: recipe });
+    return;
+  } catch (err) {
+    return console.log(err);
+  }
+};
+
+export const removeRecipeFromProfile = (id) => (dispatch) => {
+  try {
+    dispatch({ type: REMOVE_SAVE_RECIPE_PROFILE, payload: id });
     return;
   } catch (err) {
     return console.log(err);

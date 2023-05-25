@@ -54,7 +54,7 @@ const Home = () => {
           Search
         </Button>
       </Flex>
-      <SimpleGrid columns={[1, 1, 2, 4]} gap={4} mt={6} px={6}>
+      <SimpleGrid columns={[1, 1, 2, 4]} gap={4} mt={[4, 4, 6]} px={[0, 0, 6]}>
         {data &&
           data.length > 1 &&
           data.map((recipe) => <RecipeCard key={recipe.idMeal} {...recipe} />)}

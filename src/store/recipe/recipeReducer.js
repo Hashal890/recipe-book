@@ -3,6 +3,7 @@ import {
   GET_SEARCH_RECIPE,
   GET_RECIPE_BY_ID,
   SAVE_RECIPE_PROFILE,
+  REMOVE_SAVE_RECIPE_PROFILE,
 } from "./recipe.types";
 
 const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
@@ -41,6 +42,17 @@ const recipeReducer = (state = initData, { type, payload }) => {
       return {
         ...state,
         savedRecipes: newSavedRecipe,
+      };
+    }
+    case REMOVE_SAVE_RECIPE_PROFILE: {
+      const newSavedRecipes = state.savedRecipes.filter(
+        (recipe) => recipe.idMeal !== payload
+      );
+      // console.log(newSavedRecipes);
+      localStorage.setItem("savedRecipes", JSON.stringify(newSavedRecipes));
+      return {
+        ...state,
+        savedRecipes: newSavedRecipes,
       };
     }
     default: {
