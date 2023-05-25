@@ -28,27 +28,27 @@ In this project we used following tech stacks:-
 
 ### 1. Before Login Home Page
 
-![Home Page](./src/Assets/beforeLogin.png)
+![Home Page](./src/assets/beforeLogin.png)
 
 ### 2. Login Page
 
-![Login Page](./src/Assets/loginPage.png)
+![Login Page](./src/assets/loginPage.png)
 
 ### 3. Signup Page
 
-![Signup Page](./src/Assets/signupPage.png)
+![Signup Page](./src/assets/signupPage.png)
 
 ### 4. After Login Home Page Page
 
-![Products Page](./src/Assets/homePage.png)
+![Products Page](./src/assets/homePage.png)
 
 ### 5. Search Results
 
-![Product View Page](./src/Assets/searchResult.png)
+![Product View Page](./src/assets/searchResult.png)
 
 ### 6. Profile & Saved Recipes page
 
-![Cart Page](./src/Assets/profileSavedPages.png)
+![Cart Page](./src/assets/profileSavedPages.png)
 
 ## Connect with author
 
