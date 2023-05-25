@@ -2,8 +2,6 @@
 
 Hello everyone, I'm Harshal Pardeshi builded a simple recipe book application where you can view and save recipe to profile. Link for my solution:- https://recipe-book-rosy.vercel.app/.
 
-- [Problem](./src/assets/problem.png)
-
 ## Features
 
 - Homepage with links to various sections.
@@ -28,27 +26,31 @@ In this project we used following tech stacks:-
 
 ## Screenshots
 
-### 1. Before Login Home Page
+### 1. Problem
+
+![Problem](./src/assets/problem.png)
+
+### 2. Before Login Home Page
 
 ![Home Page](./src/assets/beforeLogin.png)
 
-### 2. Login Page
+### 3. Login Page
 
 ![Login Page](./src/assets/loginPage.png)
 
-### 3. Signup Page
+### 4. Signup Page
 
 ![Signup Page](./src/assets/signupPage.png)
 
-### 4. After Login Home Page Page
+### 5. After Login Home Page Page
 
 ![Products Page](./src/assets/homePage.png)
 
-### 5. Search Results
+### 6. Search Results
 
 ![Product View Page](./src/assets/searchResult.png)
 
-### 6. Profile & Saved Recipes page
+### 7. Profile & Saved Recipes page
 
 ![Cart Page](./src/assets/profileSavedPages.png)
 
