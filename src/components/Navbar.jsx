@@ -39,8 +39,7 @@ export default function Navbar() {
           <Stack direction={"row"} spacing={[2, 3, 7]} alignItems={"center"}>
             {isAuthanticated ? (
               <>
-                <Link to={"/savedrecipes"}>Saved Recipes</Link>
-                <Link to={"/profile"}>Profile</Link>
+                <Link to={"/savedrecipes"}>Profile & Saved Recipes</Link>
                 <Button
                   bg={"green.500"}
                   color={"whiteAlpha.900"}

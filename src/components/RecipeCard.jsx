@@ -1,5 +1,5 @@
 import { Box, Button, Image, Text, useToast } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { saveRecipeToProfile } from "../store/recipe/recipe.action";
@@ -9,16 +9,35 @@ const RecipeCard = (recipe) => {
   const { idMeal, strMealThumb, strMeal, strCategory, strArea } = recipe;
   const { isAuthanticated } = useSelector((store) => store.auth);
   const toast = useToast();
+  const { savedRecipes } = useSelector((store) => store.recipe);
+  const [isPresent, setIsPresent] = useState(false);
+
+  const checkRecipeSavedOrNot = () => {
+    let temp = false;
+    for (let i = 0; i < savedRecipes.length; i++) {
+      if (savedRecipes[i].idMeal === idMeal) {
+        temp = true;
+      }
+    }
+    if (temp) setIsPresent(true);
+  };
 
   const saveToProfile = () => {
-    dispatch(saveRecipeToProfile(recipe));
-    toast({
-      title: `${strMeal} saved successfully!`,
-      position: "bottom-right",
-      isClosable: true,
-      status: "success",
-    });
+    if (!isPresent) {
+      dispatch(saveRecipeToProfile(recipe));
+      toast({
+        title: `${strMeal} saved successfully!`,
+        position: "bottom-right",
+        isClosable: true,
+        status: "success",
+      });
+      setIsPresent(true);
+    }
   };
+
+  useEffect(() => {
+    checkRecipeSavedOrNot();
+  }, []);
 
   return (
     <Box borderRadius={6} border={"1px dotted gray"} py={2} px={4}>
@@ -30,7 +49,11 @@ const RecipeCard = (recipe) => {
         <Link to={`/recipe/${idMeal}`}>View Details</Link>
       </Box>
       {isAuthanticated && (
-        <Button onClick={saveToProfile} colorScheme={"cyan"}>
+        <Button
+          onClick={saveToProfile}
+          colorScheme={"cyan"}
+          disabled={isPresent}
+        >
           Save recipe
         </Button>
       )}

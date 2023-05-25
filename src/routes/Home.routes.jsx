@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
+  Divider,
   Flex,
   Input,
   SimpleGrid,
@@ -44,7 +45,7 @@ const Home = () => {
 
   return (
     <Box textAlign={"center"} pb={6}>
-      <Flex alignItems={"center"} gap={6} maxW={"600px"} m={"auto"} mt={6}>
+      <Flex alignItems={"center"} gap={6} maxW={"600px"} m={"auto"} mt={6} pb={6}>
         <Input
           placeholder={"Search recipies"}
           value={searchText}
@@ -54,6 +55,7 @@ const Home = () => {
           Search
         </Button>
       </Flex>
+      <Divider />
       <SimpleGrid columns={[1, 1, 2, 4]} gap={4} mt={[4, 4, 6]} px={[0, 0, 6]}>
         {data &&
           data.length > 1 &&
