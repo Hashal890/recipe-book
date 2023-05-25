@@ -27,9 +27,9 @@ export default function Navbar() {
     <Box
       bg={useColorModeValue("gray.100", "gray.900")}
       px={4}
-      position={"fixed"}
-      w={"100%"}
-      zIndex={10000}
+      // position={"fixed"}
+      // w={"100%"}
+      // zIndex={10000}
       // mt={window.location.pathname === "/" ? -6 : 0}
       // mb={10}
     >

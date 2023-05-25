@@ -44,15 +44,7 @@ const Home = () => {
 
   return (
     <Box textAlign={"center"} pb={6}>
-      <Flex alignItems={"center"} gap={6} maxW={"600px"} m={"auto"}>
-        <Input
-          placeholder={"Search recipies"}
-          // value={searchText}
-          // onChange={(e) => setSearchText(e.target.value)}
-        />
-        <Button colorScheme={"whatsapp"}>Search</Button>
-      </Flex>
-      <Flex alignItems={"center"} gap={6} maxW={"600px"} m={"auto"} mt={8}>
+      <Flex alignItems={"center"} gap={6} maxW={"600px"} m={"auto"} mt={6}>
         <Input
           placeholder={"Search recipies"}
           value={searchText}

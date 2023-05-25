@@ -10,7 +10,7 @@ const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
 let initData = {
   savedRecipes: savedRecipes,
   data: [],
-  singleRecipe: {},
+  singleRecipe: null,
 };
 
 const recipeReducer = (state = initData, { type, payload }) => {
